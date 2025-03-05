@@ -179,10 +179,10 @@ def alfa_beta(nodo, alfa=-float('inf'), beta=float('inf')):
 #--------------------------------------------------------------------------
 
 # Parámetros del árbol
-factor_ramificacion = 3
-profundidad = 2
+FACTOR_RAMIFICACION_ARBOL = 3
+PROFUNDIDAD_ARBOL = 2
 # Crear el árbol (la raíz es un nodo MAX por defecto)
-arbol = crear_arbol(factor_ramificacion, profundidad, min_valor=1, max_valor=100)
+arbol = crear_arbol(FACTOR_RAMIFICACION_ARBOL, PROFUNDIDAD_ARBOL, min_valor=1, max_valor=100)
 
 #-----------------------------------------------
 
