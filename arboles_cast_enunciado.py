@@ -1,3 +1,10 @@
+"""
+Módulo que implementa un árbol de juego con el algoritmo minimax y poda alfa-beta.
+
+Incluye la definición de la clase Nodo para representar los nodos del árbol,
+la generación del árbol con valores aleatorios en las hojas,
+y la ejecución del algoritmo de poda alfa-beta para optimizar la evaluación del árbol.
+"""
 import random
 import copy
 
