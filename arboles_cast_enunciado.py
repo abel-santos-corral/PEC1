@@ -4,6 +4,10 @@ import copy
 #---------------------------------------------------------------
 
 class Nodo:
+    """
+    Representa un nodo en un árbol de juego para el algoritmo minimax con poda alfa-beta.
+    Cada nodo puede ser MAX o MIN, tener hijos y almacenar un valor si es una hoja.
+    """
     def __init__(self, identificador, valor=None, es_max=True):
         self.id = identificador
         self.valor = valor
