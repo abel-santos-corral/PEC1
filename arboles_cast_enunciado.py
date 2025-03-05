@@ -16,9 +16,24 @@ class Nodo:
         self.podado = False    # Indica si el nodo ha sido podado
 
     def es_hoja(self):
+        """
+        Determina si el nodo es una hoja (no tiene hijos).
+        
+        Parámetros:
+            - No recibe parámetros adicionales.
+        
+        Retorna:
+            - True si el nodo es una hoja, False en caso contrario.
+        """
         return len(self.hijos) == 0
 
     def anadir_hijo(self, nodo):
+        """
+        Añade un hijo a la lista de hijos del nodo.
+        
+        Parámetros:
+            - nodo: Nodo a añadir como hijo.
+        """
         self.hijos.append(nodo)
 
     def __str__(self):
@@ -93,6 +108,12 @@ def imprimir_arbol(nodo, nivel=0):
 # ---        los hijos de los podados            ----
 
 def marca_podado(nodo):
+    """
+    Marca un nodo y todos sus hijos como podados.
+    
+    Parámetros:
+        - nodo: Nodo a marcar como podado junto con sus hijos.
+    """
     nodo.podado = True
     if not nodo.es_hoja():
         for hijo in nodo.hijos:
