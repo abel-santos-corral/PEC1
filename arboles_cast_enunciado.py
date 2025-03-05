@@ -6,7 +6,7 @@ la generación del árbol con valores aleatorios en las hojas,
 y la ejecución del algoritmo de poda alfa-beta para optimizar la evaluación del árbol.
 """
 import random
-import copy
+# import copy
 
 #---------------------------------------------------------------
 
