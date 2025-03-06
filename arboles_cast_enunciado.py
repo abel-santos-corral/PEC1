@@ -6,7 +6,7 @@ la generación del árbol con valores aleatorios en las hojas,
 y la ejecución del algoritmo de poda alfa-beta para optimizar la evaluación del árbol.
 """
 import random
-# import copy
+import copy
 
 #---------------------------------------------------------------
 
@@ -160,13 +160,44 @@ def alfa_beta(nodo, alfa=-float('inf'), beta=float('inf')):
         return valor
 
     # Si es un nodo MIN
-    else:
-        valor = float('inf')
-        for hijo in nodo.hijos:
-            valor = min(valor, alfa_beta(hijo, alfa, beta))
-            beta = min(beta, valor)
+    valor = float('inf')
+    for hijo in nodo.hijos:
+        valor = min(valor, alfa_beta(hijo, alfa, beta))
+        beta = min(beta, valor)
 
-            # Poda Alfa
+        # Poda Alfa
+        if alfa >= beta:
+            # Marcamos como podados los hijos restantes
+            for hijo_restante in nodo.hijos[nodo.hijos.index(hijo) + 1:]:
+                marca_podado(hijo_restante)
+            break
+
+    nodo.valor = valor
+    return valor
+
+def alfa_beta_reverso(nodo, alfa=-float('inf'), beta=float('inf')):
+    """
+    Aplica el algoritmo de poda alfa-beta en el árbol, recorriendo los hijos de derecha a izquierda.
+    Parámetros:
+       nodo: Nodo actual
+       alfa: Mejor valor para el jugador MAX hasta ahora
+       beta: Mejor valor para el jugador MIN hasta ahora
+    Retorna:
+       El valor minimax del nodo
+    """
+    # Si es una hoja, devolvemos su valor
+    if nodo.es_hoja():
+        return nodo.valor
+
+    # Si es un nodo MAX
+    if nodo.es_max:
+        valor = -float('inf')
+        # El truco es recorrer de forma reversa los nodos.
+        for hijo in reversed(nodo.hijos):
+            valor = max(valor, alfa_beta_reverso(hijo, alfa, beta))
+            alfa = max(alfa, valor)
+
+            # Poda Beta
             if alfa >= beta:
                 # Marcamos como podados los hijos restantes
                 for hijo_restante in nodo.hijos[nodo.hijos.index(hijo) + 1:]:
@@ -176,6 +207,23 @@ def alfa_beta(nodo, alfa=-float('inf'), beta=float('inf')):
         nodo.valor = valor
         return valor
 
+    # Si es un nodo MIN
+    valor = float('inf')
+    for hijo in reversed(nodo.hijos):
+        valor = min(valor, alfa_beta_reverso(hijo, alfa, beta))
+        beta = min(beta, valor)
+
+        # Poda Alfa
+        if alfa >= beta:
+            # Marcamos como podados los hijos restantes
+            for hijo_restante in nodo.hijos[nodo.hijos.index(hijo) + 1:]:
+                marca_podado(hijo_restante)
+            break
+
+    nodo.valor = valor
+    return valor
+
+
 #--------------------------------------------------------------------------
 
 # Parámetros del árbol
@@ -183,7 +231,8 @@ FACTOR_RAMIFICACION_ARBOL = 3
 PROFUNDIDAD_ARBOL = 2
 # Crear el árbol (la raíz es un nodo MAX por defecto)
 arbol = crear_arbol(FACTOR_RAMIFICACION_ARBOL, PROFUNDIDAD_ARBOL, min_valor=1, max_valor=100)
-
+# Crear una copia profunda del árbol
+arbol_reverso = copy.deepcopy(arbol)
 #-----------------------------------------------
 
 # Aplicar el algoritmo de poda alfa-beta, de izquierda a derecha
@@ -191,3 +240,9 @@ resultado = alfa_beta(arbol)
 print(f"\nResultado de alfa-beta (de izquierda a derecha): {resultado:.2f}")
 print("\nÁrbol después de la poda alfa-beta (de izquierda a derecha):")
 imprimir_arbol(arbol)
+
+# Aplicar el algoritmo de poda alfa-beta, de derecha a izquierda
+resultado_reverso = alfa_beta_reverso(arbol_reverso)
+print(f"\nResultado de alfa-beta (de derecha a izquierda): {resultado_reverso:.2f}")
+print("\nÁrbol después de la poda alfa-beta (de derecha a izquierda):")
+imprimir_arbol(arbol_reverso)

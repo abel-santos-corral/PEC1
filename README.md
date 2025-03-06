@@ -42,3 +42,13 @@ En este caso no es necesario, pero lo dejamos comentado para reutilizarlo en otr
 ```
 pip install -r requirements.txt
 ```
+
+# Ejecutar analisis
+
+Para ejecutar el programa haremos desde la terminal:
+
+```
+python3 arboles_cast_enunciado.py
+```
+
+Para poder cambiar el algoritmo podemos cambiar en el programa los valores de profundidad y de ramificación del árbol.
