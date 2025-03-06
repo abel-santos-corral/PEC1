@@ -160,21 +160,20 @@ def alfa_beta(nodo, alfa=-float('inf'), beta=float('inf')):
         return valor
 
     # Si es un nodo MIN
-    else:
-        valor = float('inf')
-        for hijo in nodo.hijos:
-            valor = min(valor, alfa_beta(hijo, alfa, beta))
-            beta = min(beta, valor)
+    valor = float('inf')
+    for hijo in nodo.hijos:
+        valor = min(valor, alfa_beta(hijo, alfa, beta))
+        beta = min(beta, valor)
 
-            # Poda Alfa
-            if alfa >= beta:
-                # Marcamos como podados los hijos restantes
-                for hijo_restante in nodo.hijos[nodo.hijos.index(hijo) + 1:]:
-                    marca_podado(hijo_restante)
-                break
+        # Poda Alfa
+        if alfa >= beta:
+            # Marcamos como podados los hijos restantes
+            for hijo_restante in nodo.hijos[nodo.hijos.index(hijo) + 1:]:
+                marca_podado(hijo_restante)
+            break
 
-        nodo.valor = valor
-        return valor
+    nodo.valor = valor
+    return valor
 
 def alfa_beta_reverso(nodo, alfa=-float('inf'), beta=float('inf')):
     """
@@ -209,21 +208,20 @@ def alfa_beta_reverso(nodo, alfa=-float('inf'), beta=float('inf')):
         return valor
 
     # Si es un nodo MIN
-    else:
-        valor = float('inf')
-        for hijo in reversed(nodo.hijos):
-            valor = min(valor, alfa_beta_reverso(hijo, alfa, beta))
-            beta = min(beta, valor)
+    valor = float('inf')
+    for hijo in reversed(nodo.hijos):
+        valor = min(valor, alfa_beta_reverso(hijo, alfa, beta))
+        beta = min(beta, valor)
 
-            # Poda Alfa
-            if alfa >= beta:
-                # Marcamos como podados los hijos restantes
-                for hijo_restante in nodo.hijos[nodo.hijos.index(hijo) + 1:]:
-                    marca_podado(hijo_restante)
-                break
+        # Poda Alfa
+        if alfa >= beta:
+            # Marcamos como podados los hijos restantes
+            for hijo_restante in nodo.hijos[nodo.hijos.index(hijo) + 1:]:
+                marca_podado(hijo_restante)
+            break
 
-        nodo.valor = valor
-        return valor
+    nodo.valor = valor
+    return valor
 
 
 #--------------------------------------------------------------------------
